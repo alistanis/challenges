@@ -1,24 +1,17 @@
 package models
 
-import (
-	"sync"
-
-	"github.com/alistanis/challenges/util"
-)
+import "github.com/alistanis/challenges/util"
 
 type LightController struct {
 	LightState  uint
 	numSwitches int
-	mu          sync.Mutex
 }
 
 func NewLightController(numSwitches int) *LightController {
-	return &LightController{0, numSwitches, sync.Mutex{}}
+	return &LightController{0, numSwitches}
 }
 
 func (s *LightController) Toggle(i int) {
-	s.mu.Lock()
-	defer s.mu.Unlock()
 	s.LightState ^= 1 << uint(i)
 }
 
